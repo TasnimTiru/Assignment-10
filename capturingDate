@@ -1,1 +1,13 @@
 Here is the GEE link : https://code.earthengine.google.com/097229de63cdeaad6dddffd780151159
+Here is the code:
+var L9 = ee.ImageCollection('LANDSAT/LC09/C02/T1')
+        .filterBounds(aoi)
+        .filterDate('2023-02-01', '2023-02-28')
+        .filter(ee.Filter.lt('CLOUD_COVER', 10));
+print(L9)
+var img = ee.Image("LANDSAT/LC09/C02/T1/LC09_137043_20230227")
+var capturingDate=ee.Date(img.get("system:time_start"));
+
+print("Capturing Date:", capturingDate)
+var formattedDate= capturingDate.format("YYYY-MM-dd")
+print("Formatted capturing date:", formattedDate)
