@@ -1,0 +1,21 @@
+Here is the GEE link of RGB composite image of upazilla: https://code.earthengine.google.com/68224f952cb5657f4452eb088f9fdd7f
+Here is the code:
+print(table.first())
+var aoi = table.filter(ee.Filter.eq("NAME_3", "Manikganj S."))
+print(aoi)
+Map.centerObject(aoi)
+Map.addLayer(aoi, {},"Manikganj S. upzilla")
+var s2 = ee.ImageCollection("COPERNICUS/S2_SR")
+         .filterBounds(aoi)
+         .filterDate("2023-02-01", "2023-02-28")
+         .select(["B4","B3","B2","B8"])
+         .mean()
+         
+print(s2)
+
+var vizpm = {
+  min:0,
+  max: 2000,
+  bands:["B4","B3","B2"]
+}
+Map.addLayer(s2.clip(aoi),vizpm,"RGB image")
